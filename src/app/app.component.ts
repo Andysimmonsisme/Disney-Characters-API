@@ -8,6 +8,7 @@ export class AppComponent {
   name;
   page: number;
   totalPages: number;
+  filter: string;
 
   receiveTotalPages($event) {
     this.totalPages = $event;
@@ -15,5 +16,9 @@ export class AppComponent {
 
   receivePageChange($event) {
     this.page = $event;
+  }
+
+  receiveFilterChange($event) {
+    this.filter = $event;
   }
 }

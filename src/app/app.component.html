@@ -6,15 +6,16 @@
   Enjoy browsing all Disney characters available through this free Disney API!
 </h6>
 <hr />
-<hello></hello>
-<filter></filter>
+<filter (sendFilterChange)="receiveFilterChange($event)"></filter>
 <page-nav
+  class="d-sm-flex justify-content-center"
   [receivePageChange]="page"
   [totalPages]="totalPages"
   (sendPageChange)="receivePageChange($event)"
 ></page-nav>
 <disney-characters
   [page]="page"
+  [filter]="filter"
   (sendTotalPages)="receiveTotalPages($event)"
 ></disney-characters>
 <page-nav

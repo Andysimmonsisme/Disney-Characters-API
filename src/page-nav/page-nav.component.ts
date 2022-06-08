@@ -51,4 +51,13 @@ export class PageNavComponent implements OnChanges {
       this.goToPage = this.totalPages;
     }
   }
+
+  handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      // Cancel the default action, if needed
+      event.preventDefault();
+      // Trigger the button element with a click
+      this.loadPage();
+    }
+  }
 }

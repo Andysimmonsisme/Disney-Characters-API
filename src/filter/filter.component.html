@@ -1,1 +1,6 @@
-Filter by name: <input type="text" [(ngModel)]="name" />
+Filter by name/association:
+<input
+  type="text"
+  [(ngModel)]="filter"
+  (ngModelChange)="handleFilterChange()"
+/>

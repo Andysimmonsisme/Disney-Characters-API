@@ -47,6 +47,10 @@ li {
   margin: 10px 0 5px 0;
 }
 
+.association {
+  font-size: 13px;
+}
+
 .page-nav {
   width: fit-content;
 }

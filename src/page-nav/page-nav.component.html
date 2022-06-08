@@ -20,7 +20,12 @@
   </div>
   <div>
     Page:
-    <input type="number" style="width:25px" [(ngModel)]="goToPage" />
+    <input
+      type="number"
+      style="width:40px"
+      [(ngModel)]="goToPage"
+      (keypress)="handleKeyPress($event)"
+    />
     of
     {{ totalPages }}
     <button (click)="loadPage()" type="button" class="btn btn-light">

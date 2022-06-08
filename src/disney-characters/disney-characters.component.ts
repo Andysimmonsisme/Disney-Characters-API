@@ -19,16 +19,21 @@ export class DisneyCharactersComponent implements OnChanges {
   headers;
   config;
   disneyCharacters;
+  allCharacters;
   totalPages;
 
   @Input() page: number;
+  @Input() filter: string;
   @Output() sendTotalPages = new EventEmitter<number>();
 
   constructor(private http: HttpClient) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['page']) {
-      this.populateDisneyCharacters();
+      this.populateDisneyCharacters('');
+    }
+    if (changes['filter']) {
+      this.populateDisneyCharacters(changes['filter'].currentValue);
     }
   }
 
@@ -43,21 +48,29 @@ export class DisneyCharactersComponent implements OnChanges {
       .pipe(catchError(null));
   }
 
-  populateDisneyCharacters() {
-    this.getDisneyCharacters().subscribe((resp) => {
-      // display its headers
-      const keys = resp.headers.keys();
-      this.headers = keys.map((key) => `${key}: ${resp.headers.get(key)}`);
+  populateDisneyCharacters(filter) {
+    if (filter && filter.trim() !== '') {
+      let newData = [];
+      this.allCharacters.forEach((chtr) => {
+        if (chtr.name.toLowerCase().includes(filter)) newData.push(chtr);
+      });
+      this.disneyCharacters = newData;
+    } else {
+      this.getDisneyCharacters().subscribe((resp) => {
+        // display its headers
+        const keys = resp.headers.keys();
+        this.headers = keys.map((key) => `${key}: ${resp.headers.get(key)}`);
 
-      this.config = { ...resp.body! };
-      this.config.data.forEach((item) =>
-        console.log('populateDisneyCharacters', item)
-      );
-      this.totalPages = this.config.totalPages;
-      this.disneyCharacters = this.config.data;
+        this.config = { ...resp.body! };
+        this.config.data.forEach((item) =>
+          console.log('populateDisneyCharacters', item)
+        );
+        this.totalPages = this.config.totalPages;
+        this.disneyCharacters = this.allCharacters = this.config.data;
 
-      this.sendTotalPages.emit(this.totalPages);
-    });
+        this.sendTotalPages.emit(this.totalPages);
+      });
+    }
   }
 
   isCharacterFeature(val) {
@@ -74,6 +87,6 @@ export class DisneyCharactersComponent implements OnChanges {
   }
 
   ngOnInit() {
-    this.populateDisneyCharacters();
+    this.populateDisneyCharacters('');
   }
 }
