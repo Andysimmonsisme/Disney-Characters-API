@@ -1,12 +1,13 @@
 html {
   background: linear-gradient(90deg, #003366 0%, #23469f 100%);
-  color: white;
 }
 
 /* Add application styles & imports to this file! */
 body {
+  background-color: transparent;
   font-family: 'Lato';
   padding: 25px;
+  color: white;
 }
 
 #disney-logo {
@@ -15,24 +16,42 @@ body {
   margin: auto;
 }
 
+h6 {
+  margin: 0px;
+}
+
+input,
+.btn-light {
+  color: #333;
+}
+
+filter {
+  padding-left: 5px;
+}
+
+ul {
+  padding-top: 25px;
+}
+
 li {
   display: inline-block;
-  padding: 15px;
+  margin: 10px;
   width: 125px;
   vertical-align: top;
 }
 
-.char-name {
-  margin-bottom: 10px;
-}
-
 .disney-char-img {
   width: 125px;
+  margin: 10px 0 5px 0;
 }
 
 #page-nav {
   margin: auto;
   width: fit-content;
+}
+
+#page-nav div {
+  margin: 5px 0 5px 0;
 }
 
 hr {

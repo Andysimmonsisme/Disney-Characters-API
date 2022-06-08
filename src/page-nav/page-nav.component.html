@@ -1,18 +1,30 @@
 <div id="page-nav">
-  <button [attr.disabled]="page <= 1 ? 'disabled' : null" (click)="lastPage()">
-    << Last page
-  </button>
-  &nbsp;
-  <button
-    [attr.disabled]="page >= totalPages ? 'disabled' : null"
-    (click)="nextPage()"
-  >
-    Next page >>
-  </button>
+  <div>
+    <button
+      [attr.disabled]="page <= 1 ? 'disabled' : null"
+      (click)="lastPage()"
+      type="button"
+      class="btn btn-light"
+    >
+      << Last page
+    </button>
+    &nbsp;
+    <button
+      [attr.disabled]="page >= totalPages ? 'disabled' : null"
+      (click)="nextPage()"
+      type="button"
+      class="btn btn-light"
+    >
+      Next page >>
+    </button>
+  </div>
   <div>
     Page:
     <input type="number" style="width:25px" [(ngModel)]="goToPage" />
     of
-    {{ totalPages }} <button (click)="loadPage()">Go to page</button>
+    {{ totalPages }}
+    <button (click)="loadPage()" type="button" class="btn btn-light">
+      Go to page
+    </button>
   </div>
 </div>
