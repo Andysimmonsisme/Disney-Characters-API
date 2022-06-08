@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'search',
-  templateUrl: './search.component.html',
+  selector: 'filter',
+  templateUrl: './filter.component.html',
 })
-export class SearchComponent implements OnInit {
+export class FilterComponent implements OnInit {
   constructor() {}
 
   name: string;
