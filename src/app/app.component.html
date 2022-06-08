@@ -8,11 +8,18 @@
 <hr />
 <hello></hello>
 <filter></filter>
+<page-nav
+  [receivePageChange]="page"
+  [totalPages]="totalPages"
+  (sendPageChange)="receivePageChange($event)"
+></page-nav>
 <disney-characters
   [page]="page"
   (sendTotalPages)="receiveTotalPages($event)"
 ></disney-characters>
 <page-nav
+  class="d-flex justify-content-center"
+  [receivePageChange]="page"
   [totalPages]="totalPages"
   (sendPageChange)="receivePageChange($event)"
 ></page-nav>

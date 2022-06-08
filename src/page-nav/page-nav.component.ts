@@ -1,17 +1,34 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  OnChanges,
+  SimpleChanges,
+  EventEmitter,
+} from '@angular/core';
 
 @Component({
   selector: 'page-nav',
   templateUrl: './page-nav.component.html',
 })
-export class PageNavComponent {
+export class PageNavComponent implements OnChanges {
   page = 1;
   goToPage = 1;
 
   @Input() totalPages: number;
+  @Input() receivePageChange;
   @Output() sendPageChange = new EventEmitter<number>();
 
   constructor() {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (
+      changes['receivePageChange'] &&
+      changes['receivePageChange'].currentValue
+    ) {
+      this.goToPage = this.page = changes['receivePageChange'].currentValue;
+    }
+  }
 
   loadPage() {
     this.validatePageNum();

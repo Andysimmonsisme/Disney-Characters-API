@@ -50,7 +50,9 @@ export class DisneyCharactersComponent implements OnChanges {
       this.headers = keys.map((key) => `${key}: ${resp.headers.get(key)}`);
 
       this.config = { ...resp.body! };
-      this.config.data.forEach((item) => console.log(item));
+      this.config.data.forEach((item) =>
+        console.log('populateDisneyCharacters', item)
+      );
       this.totalPages = this.config.totalPages;
       this.disneyCharacters = this.config.data;
 

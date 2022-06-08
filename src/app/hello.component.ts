@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'hello',
-  template: `<h1>Hello{{name ? ' ' + name : ''}}!`,
+  template: `<h1>Welcome{{name ? ' ' + name : ''}}!`,
 })
 export class HelloComponent {
   @Input() name: string;

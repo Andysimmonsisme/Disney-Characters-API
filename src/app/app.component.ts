@@ -5,7 +5,7 @@ import { Component, VERSION } from '@angular/core';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  name = 'Disney lover';
+  name;
   page: number;
   totalPages: number;
 

@@ -1,5 +1,6 @@
 html {
   background: linear-gradient(90deg, #003366 0%, #23469f 100%);
+  min-width: 300px;
 }
 
 /* Add application styles & imports to this file! */
@@ -26,12 +27,8 @@ input,
   color: #333;
 }
 
-search {
+filter {
   padding-left: 5px;
-}
-
-btn {
-  vertical-align: top;
 }
 
 ul {
@@ -50,12 +47,11 @@ li {
   margin: 10px 0 5px 0;
 }
 
-#page-nav {
-  margin: auto;
+.page-nav {
   width: fit-content;
 }
 
-#page-nav div {
+.page-nav div {
   margin: 5px 0 5px 0;
 }
 
