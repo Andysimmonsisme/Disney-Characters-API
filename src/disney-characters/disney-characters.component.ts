@@ -53,6 +53,19 @@ export class DisneyCharactersComponent implements OnChanges {
       let newData = [];
       this.allCharacters.forEach((chtr) => {
         if (chtr.name.toLowerCase().includes(filter)) newData.push(chtr);
+        else {
+          for (let key in chtr) {
+            let val = chtr[key];
+            if (Array.isArray(val) && val.length > 0) {
+              let combStr = val.join(',');
+              if (combStr.toLowerCase().includes(filter.toLowerCase())) {
+                console.log(combStr, filter);
+                newData.push(chtr);
+                break;
+              }
+            }
+          }
+        }
       });
       this.disneyCharacters = newData;
     } else {
