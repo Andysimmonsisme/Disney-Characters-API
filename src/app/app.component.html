@@ -1,0 +1,18 @@
+<img
+  id="disney-logo"
+  src="https://pngimg.com/uploads/walt_disney/walt_disney_PNG38.png"
+/>
+<hr />
+<hello name="{{ name }}"></hello>
+<p>
+  Enjoy browsing all Disney characters available through this free Disney API!
+</p>
+<filter></filter>
+<disney-characters
+  [page]="page"
+  (sendTotalPages)="receiveTotalPages($event)"
+></disney-characters>
+<page-nav
+  [totalPages]="totalPages"
+  (sendPageChange)="receivePageChange($event)"
+></page-nav>

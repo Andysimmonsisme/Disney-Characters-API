@@ -1,0 +1,52 @@
+html {
+  background: linear-gradient(90deg, #003366 0%, #23469f 100%);
+  color: white;
+}
+
+/* Add application styles & imports to this file! */
+body {
+  font-family: 'Lato';
+  padding: 25px;
+}
+
+#disney-logo {
+  width: 200px;
+  display: block;
+  margin: auto;
+}
+
+li {
+  display: inline-block;
+  padding: 15px;
+  width: 125px;
+  vertical-align: top;
+}
+
+.char-name {
+  margin-bottom: 10px;
+}
+
+.disney-char-img {
+  width: 125px;
+}
+
+#page-nav {
+  margin: auto;
+  width: fit-content;
+}
+
+hr {
+  opacity: 0.5;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}

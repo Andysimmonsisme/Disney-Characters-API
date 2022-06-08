@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let character of disneyCharacters; index as i">
+    <div class="char-name">{{ character.name }}</div>
+    <img class="disney-char-img" src="{{ character.imageUrl }}" />
+    Info will go here...
+  </li>
+</ul>
+<hr />
