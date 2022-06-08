@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
 import { DisneyCharactersComponent } from '../disney-characters/disney-characters.component';
 import { PageNavComponent } from '../page-nav/page-nav.component';
-import { FilterComponent } from '../filter/filter.component';
+import { SearchComponent } from '../search/search.component';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpClientModule],
@@ -16,7 +16,7 @@ import { FilterComponent } from '../filter/filter.component';
     HelloComponent,
     DisneyCharactersComponent,
     PageNavComponent,
-    FilterComponent,
+    SearchComponent,
   ],
   bootstrap: [AppComponent],
 })

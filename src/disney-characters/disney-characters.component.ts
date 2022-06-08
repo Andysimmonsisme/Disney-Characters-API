@@ -58,6 +58,19 @@ export class DisneyCharactersComponent implements OnChanges {
     });
   }
 
+  isCharacterFeature(val) {
+    return Array.isArray(val) && val.length > 0;
+  }
+
+  convertToTitleCase(val) {
+    return val
+      .split(/(?=[A-Z])/)
+      .map((p) => {
+        return p[0].toUpperCase() + p.slice(1);
+      })
+      .join(' ');
+  }
+
   ngOnInit() {
     this.populateDisneyCharacters();
   }

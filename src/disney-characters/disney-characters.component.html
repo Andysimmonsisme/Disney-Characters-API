@@ -2,7 +2,12 @@
   <li *ngFor="let character of disneyCharacters; index as i">
     <div class="char-name">{{ character.name }}</div>
     <img class="disney-char-img" src="{{ character.imageUrl }}" />
-    Info will go here...
+    <ng-template ngFor let-pair [ngForOf]="character | keyvalue">
+      <div *ngIf="isCharacterFeature(pair.value)">
+        <span class="text-capitalize">{{ convertToTitleCase(pair.key) }}:</span>
+        {{ pair.value }}
+      </div>
+    </ng-template>
   </li>
 </ul>
 <hr />
