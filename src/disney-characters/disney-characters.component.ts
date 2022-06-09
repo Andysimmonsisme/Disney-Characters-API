@@ -30,10 +30,11 @@ export class DisneyCharactersComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['page']) {
-      this.populateDisneyCharacters('');
+      this.populateDisneyCharacters(true);
     }
     if (changes['filter']) {
-      this.populateDisneyCharacters(changes['filter'].currentValue);
+      this.filter = changes['filter'].currentValue;
+      this.populateDisneyCharacters(false);
     }
   }
 
@@ -48,27 +49,8 @@ export class DisneyCharactersComponent implements OnChanges {
       .pipe(catchError(null));
   }
 
-  populateDisneyCharacters(filter) {
-    if (filter && filter.trim() !== '') {
-      let newData = [];
-      this.allCharacters.forEach((chtr) => {
-        if (chtr.name.toLowerCase().includes(filter)) newData.push(chtr);
-        else {
-          for (let key in chtr) {
-            let val = chtr[key];
-            if (Array.isArray(val) && val.length > 0) {
-              let combStr = val.join(',');
-              if (combStr.toLowerCase().includes(filter.toLowerCase())) {
-                console.log(combStr, filter);
-                newData.push(chtr);
-                break;
-              }
-            }
-          }
-        }
-      });
-      this.disneyCharacters = newData;
-    } else {
+  populateDisneyCharacters(newPage) {
+    if (newPage) {
       this.getDisneyCharacters().subscribe((resp) => {
         // display its headers
         const keys = resp.headers.keys();
@@ -81,9 +63,31 @@ export class DisneyCharactersComponent implements OnChanges {
         this.totalPages = this.config.totalPages;
         this.disneyCharacters = this.allCharacters = this.config.data;
 
+        this.filterCharacters();
         this.sendTotalPages.emit(this.totalPages);
       });
-    }
+    } else this.filterCharacters();
+  }
+
+  filterCharacters() {
+    let newData = [];
+    this.allCharacters.forEach((chtr) => {
+      if (chtr.name.toLowerCase().includes(this.filter)) newData.push(chtr);
+      else {
+        for (let key in chtr) {
+          let val = chtr[key];
+          if (Array.isArray(val) && val.length > 0) {
+            let combStr = val.join(',');
+            if (combStr.toLowerCase().includes(this.filter.toLowerCase())) {
+              console.log(combStr, this.filter);
+              newData.push(chtr);
+              break;
+            }
+          }
+        }
+      }
+    });
+    this.disneyCharacters = newData;
   }
 
   isCharacterFeature(val) {
@@ -100,6 +104,6 @@ export class DisneyCharactersComponent implements OnChanges {
   }
 
   ngOnInit() {
-    this.populateDisneyCharacters('');
+    this.populateDisneyCharacters(true);
   }
 }
