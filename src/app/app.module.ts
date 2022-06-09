@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
 import { DisneyCharactersComponent } from '../disney-characters/disney-characters.component';
+import { DisneyCharactersService } from '../disney-characters/disney-characters.service';
 import { PageNavComponent } from '../page-nav/page-nav.component';
 import { FilterComponent } from '../filter/filter.component';
 
@@ -18,6 +19,7 @@ import { FilterComponent } from '../filter/filter.component';
     PageNavComponent,
     FilterComponent,
   ],
+  providers: [DisneyCharactersService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

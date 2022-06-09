@@ -6,88 +6,43 @@ import {
   SimpleChanges,
   EventEmitter,
 } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { query } from '@angular/animations';
+import { DisneyCharactersService } from './disney-characters.service';
 
 @Component({
   selector: 'disney-characters',
   templateUrl: './disney-characters.component.html',
+  providers: [DisneyCharactersService],
 })
 export class DisneyCharactersComponent implements OnChanges {
-  url = 'https://api.disneyapi.dev/characters';
-  headers;
-  config;
   disneyCharacters;
-  allCharacters;
   totalPages;
 
-  @Input() page: number;
+  @Input() page: number = 1;
   @Input() filter: string;
   @Output() sendTotalPages = new EventEmitter<number>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private disneyCharacterService: DisneyCharactersService) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['page']) {
-      this.populateDisneyCharacters(true);
+      this.populateDisneyCharacters(this.page, this.filter);
     }
     if (changes['filter']) {
       this.filter = changes['filter'].currentValue;
-      this.populateDisneyCharacters(false);
+      this.populateDisneyCharacters(0, this.filter);
     }
   }
 
-  /** GET disney characters from the server */
-  getDisneyCharacters() {
-    let queryString = this.page > 1 ? '?page=' + this.page : '';
-    return this.http
-      .get(this.url + queryString, {
-        observe: 'response',
-        responseType: 'json',
-      })
-      .pipe(catchError(null));
-  }
+  populateDisneyCharacters(page, filter) {
+    this.disneyCharacterService
+      .populateDisneyCharacters(page, filter)
+      .then((data: any) => {
+        if (data.totalPages) this.totalPages = data.totalPages;
+        this.disneyCharacters = data.disneyCharacters;
 
-  populateDisneyCharacters(newPage) {
-    if (newPage) {
-      this.getDisneyCharacters().subscribe((resp) => {
-        // display its headers
-        const keys = resp.headers.keys();
-        this.headers = keys.map((key) => `${key}: ${resp.headers.get(key)}`);
-
-        this.config = { ...resp.body! };
-        this.config.data.forEach((item) =>
-          console.log('populateDisneyCharacters', item)
-        );
-        this.totalPages = this.config.totalPages;
-        this.disneyCharacters = this.allCharacters = this.config.data;
-
-        this.filterCharacters();
         this.sendTotalPages.emit(this.totalPages);
+        return data.disneyCharacters;
       });
-    } else this.filterCharacters();
-  }
-
-  filterCharacters() {
-    let newData = [];
-    this.allCharacters.forEach((chtr) => {
-      if (chtr.name.toLowerCase().includes(this.filter)) newData.push(chtr);
-      else {
-        for (let key in chtr) {
-          let val = chtr[key];
-          if (Array.isArray(val) && val.length > 0) {
-            let combStr = val.join(',');
-            if (combStr.toLowerCase().includes(this.filter.toLowerCase())) {
-              console.log(combStr, this.filter);
-              newData.push(chtr);
-              break;
-            }
-          }
-        }
-      }
-    });
-    this.disneyCharacters = newData;
   }
 
   isCharacterFeature(val) {
@@ -104,6 +59,6 @@ export class DisneyCharactersComponent implements OnChanges {
   }
 
   ngOnInit() {
-    this.populateDisneyCharacters(true);
+    this.populateDisneyCharacters(1, this.filter);
   }
 }
